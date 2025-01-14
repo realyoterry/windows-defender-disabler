@@ -16,7 +16,7 @@ A simple BAT file that adds registry values to permanently disable Windows Defen
 
 4. Restart your computer, and boom! Windows Defender disabled in 4 simple steps.
 
-#### If you want to revert the changes:
+## Reverting Changes
 
 If you want to re-enable Windows Defender for any reason, simply download & run the [undo.bat](undo.bat) file as Administrator to undo the changes.
 
