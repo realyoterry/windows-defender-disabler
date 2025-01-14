@@ -3,7 +3,7 @@
 A simple BAT file that adds registry values to permanently disable Windows Defender.
 
 > [!NOTE]
-> If you believe this is unsafe, check the [disabler.bat](disabler.bat) file. It simply adds 32-bit DWORD entries to the registry to disable Windows Defender protection.
+> If you believe this is unsafe, check the [disabler.bat](disabler.bat) and [undo.bat](undo.bat) files. It simply adds 32-bit DWORD entries to the registry to disable Windows Defender protection. All of the code is open-source, so no need to worry about security vulnerabilities.
 
 ## Steps for Usage
 
