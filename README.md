@@ -8,6 +8,10 @@ A simple BAT file that adds registry values to permanently disable Windows Defen
 ## Steps for Usage
 
 1. Download the `disabler.bat` file from the [Releases](https://github.com/realyoterry/windows-defender-disabler/releases) menu.
+
+> [!NOTE]
+> An alternative way to download the files is to click the green "Code" button, and select "Download ZIP".
+  
 2. Extract the zipped folder
 3. Run the `bat` file with **administrative permisions.**
 
