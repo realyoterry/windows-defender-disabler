@@ -1,54 +1,38 @@
 @echo off
 
-:: Confirm action
-echo WARNING: This will revert the changes made to Windows Defender settings. Proceed? (Y/N)
+echo WARNING: This will revert the changes made Proceed? (Y/N)
 set /p proceed=
 if /i not "%proceed%"=="Y" (
-    echo Operation canceled.
+    echo Operation cancelled
     exit /b
 )
 
-:: Check for administrator privileges
-fsutil dirty query %systemdrive% >nul 2>&1
-if %errorlevel% neq 0 (
-    echo This script must be run as an administrator!
-    echo Right-click the .bat file and select "Run as administrator."
+NET SESSION >nul 2>&1
+IF %ERRORLEVEL% NEQ 0 (
+    echo This script has to run as an admin!
     pause
     exit /b
 )
 
-echo Reverting Windows Defender Settings...
 
-:: Define registry paths
-set DefenderPath=HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
-set RealTimePath=%DefenderPath%\Real-Time Protection
-set SignaturePath=%DefenderPath%\Signature Update
-set SpynetPath=%DefenderPath%\Spynet
+set Def=HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
+set Real=%Def%\Real-Time Protection
+set Sig=%Def%\Signature Update
+set Spy=%Def%\Spynet
+reg delete "%Def%" /v DisableAntiSpyware /f
+reg delete "%Def%" /v DisableAntiVirus /f
+reg delete "%Def%" /v DisableSpecialRunningModes /f
+reg delete "%Def%" /v DisableRoutinelyTakingAction /f
+reg delete "%Def%" /v ServiceKeepAlive /f
+reg delete "%Real%" /v DisableBehaviourMonitoring /f
+reg delete "%Real%" /v DisableOnAccessProtection /f
+reg delete "%Real%" /v DisableRealTimeMonitoring /f
+reg delete "%Real%" /v DisableScanOnRealtimeEnable /f
+reg delete "%Sig%" /v ForceUpdateFromMU /f
+reg delete "%Spy%" /v DisableBlockAtFirstSeen /f
+reg delete "%Real%" /f
+reg delete "%Sig%" /f
+reg delete "%Spy%" /f
 
-:: Revert Defender Policies
-reg delete "%DefenderPath%" /v DisableAntiSpyware /f
-reg delete "%DefenderPath%" /v DisableAntiVirus /f
-reg delete "%DefenderPath%" /v DisableSpecialRunningModes /f
-reg delete "%DefenderPath%" /v DisableRoutinelyTakingAction /f
-reg delete "%DefenderPath%" /v ServiceKeepAlive /f
-
-:: Revert Real-Time Protection
-reg delete "%RealTimePath%" /v DisableBehaviourMonitoring /f
-reg delete "%RealTimePath%" /v DisableOnAccessProtection /f
-reg delete "%RealTimePath%" /v DisableRealTimeMonitoring /f
-reg delete "%RealTimePath%" /v DisableScanOnRealtimeEnable /f
-
-:: Revert Signature Update
-reg delete "%SignaturePath%" /v ForceUpdateFromMU /f
-
-:: Revert Spynet
-reg delete "%SpynetPath%" /v DisableBlockAtFirstSeen /f
-
-:: Cleanup empty keys
-reg delete "%RealTimePath%" /f
-reg delete "%SignaturePath%" /f
-reg delete "%SpynetPath%" /f
-
-:: Notify user of completion
-echo Windows Defender settings have been reverted to defaults.
+echo Windows Defender is restored
 pause
